@@ -1,0 +1,1 @@
+<view><view class="cu-bar"><view class="action"><text class="cuIcon-title text-green"></text><text>机构信息</text></view></view><view class="cu-form-group"><view class="title">归属网点</view><text>{{bkName}}</text></view></view>

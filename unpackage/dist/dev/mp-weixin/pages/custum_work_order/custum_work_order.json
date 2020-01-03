@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "工单上报",
+  "usingComponents": {
+    "mpvue-picker": "/node-modules/mpvue-picker/src/mpvue-picker/mpvuePicker"
+  }
+}
