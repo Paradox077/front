@@ -9,11 +9,11 @@
 			</view>
 			<view class="cu-form-group">
 				<view class="title">联系人</view>
-				<input placeholder="您的姓名" name="cusWO.linkmanName"></input>
+				<input @input="setPerson"></input>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">电话号码</view>
-				<input name="cusWO.phone"></input>
+				<input @input="setPhone"></input>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">归属网点</view>
@@ -31,7 +31,7 @@
 				<view class="title">设备类型</view>
 				<picker mode="multiSelector" @change="MultiChange" range-key="label" @columnchange="MultiColumnChange" :value="multiIndex" :range="multiArray">
 					<view class="picker">
-						{{multiIndex[0]==5?multiArray[multiIndex[0]].label:multiArray[multiIndex[0]][multiIndex[1]].label}}
+						{{multiIndex[0]==5?multiArray[0][multiIndex[0]].label:multiArray[1][multiIndex[1]].label}}
 					</view>
 				</picker>
 			</view>
@@ -42,7 +42,7 @@
 				</view>
 			</view>
 			<view class="cu-form-group">
-				<textarea maxlength="-1" :disabled="modalName!=null" @input="textareaAInput" placeholder="故障描述"></textarea>
+				<textarea maxlength="-1" @input="setDescription" placeholder="故障描述"></textarea>
 			</view>
 			<view class="cu-bar bg-white margin-top">
 				<view class="action">
@@ -67,7 +67,7 @@
 				</view>
 			</view>
 			<view class="padding flex flex-direction margin-top">
-				<button class="cu-btn bg-gradual-blue lg" form-type="submit">提交</button>
+				<button class="cu-btn bg-gradual-blue lg" @click="createWO">提交</button>
 			</view>
 		</form>
 	</view>
@@ -75,19 +75,17 @@
 
 <script>
 import Api from '../../api/wo';
-import mpvuePicker from 'mpvue-picker';
 	export default {
-		components: {
-			mpvuePicker	
-		},
 		onLoad:function(){
 			Api.initWO().then(res => {
 					this.bkName = res.data.org
+					console.log(res.data)
 					this.machinePickerArray = res.data.machinePicker
 					this.faultPickerArray = res.data.faultPicker
 					this.multiArray[0] = res.data.machinePicker
 					this.multiArray[1] = res.data.machinePicker[0].children
-					console.log(this.multiArray)
+					this.machineId = this.multiArray[1][0].value
+					this.orgId = res.data.orgId
 				})
 		},
 		data() {
@@ -99,7 +97,13 @@ import mpvuePicker from 'mpvue-picker';
 				multiIndex: [0, 0],
 				machinePickerArray: [],
 				faultPickerArray: [],
-				flag: false
+				flag: false,
+				machineId:'',
+				faultId:'',
+				description:'',
+				person: '',
+				phone: '',
+				orgId:''
 			};
 		},
 		methods: {
@@ -107,7 +111,7 @@ import mpvuePicker from 'mpvue-picker';
 				uni.chooseImage({
 					count: 4, //默认9
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-					sourceType: ['album','camera'], //从相册选择
+					sourceType: ['album','camera'], 
 					success: (res) => {
 						if (this.imgList.length != 0) {
 							this.imgList = this.imgList.concat(res.tempFilePaths)
@@ -137,38 +141,92 @@ import mpvuePicker from 'mpvue-picker';
 				})
 			},
 			PickerChange(e) {
-				console.log(e.detail.value)
 				this.index = e.detail.value
+				this.faultId = this.faultPickerArray[this.index].value
 			},
 			MultiChange(e) {
-				console.log(e.detail.value)
 				this.multiIndex = e.detail.value
+				if(this.multiArray[0][this.multiIndex[0]].value == '99999'){
+					this.machineId = this.multiArray[0][this.multiIndex[0]].value
+				}else{
+					this.machineId = this.multiArray[1][this.multiIndex[1]].value
+				}
 			},
 			MultiColumnChange(e) {
 				let data = {
 					multiArray: this.multiArray,
 					multiIndex: this.multiIndex
 				};
-				let len = data.multiArray.length
-				console.log(e.detail.value)
-				console.log(e.detail.column)
+				let len = data.multiArray[0].length
+				console.log('len:'+len)
 				data.multiIndex[e.detail.column] = e.detail.value
+				console.log('multiIndex:'+data.multiIndex[0])
+				if(data.multiIndex[0] == 5){
+					data.multiArray[1] = []
+					this.multiIndex.splice(1, 0)
+				}
 				for(let i = 0 ; i < len ; i++){
-					if(i == 5){
-						data.multiArray[1] = []
-						break
-					}
 					if(data.multiIndex[0] == i){
-						console.log(data.multiArray[0][i])
 						data.multiArray[1] = data.multiArray[0][i].children
+						this.multiIndex.splice(1, 0)
 						break
 					}
 				}
-				data.multiIndex[1] = 0
 				this.multiArray = data.multiArray
 				this.multiIndex = data.multiIndex
-				console.log(this.multiArray)
 			},
+			setDescription(e){
+				this.description = e.detail.value
+			},
+			setPhone(e){
+				this.phone = e.detail.value
+			},
+			setPerson(e){
+				this.person = e.detail.value
+			},
+			createWO(){
+				let data = {
+					machineId: this.machineId,
+					faultId: this.faultId,
+					person: this.person,
+					phone: this.phone,
+					description: this.description,
+					orgId: this.orgId,
+					imgPath:''
+				}
+				if(data.person==''){
+					uni.showToast({
+						title: '请输入姓名',
+						icon: 'none'
+					})
+					return
+				}
+				if(data.phone==''){
+					uni.showToast({
+						title: '请输入联系方式',
+						icon: 'none'
+					})
+					return
+				}
+				if(data.faultId==''){
+					uni.showToast({
+						title: '请选择故障类型',
+						icon: 'none'
+					})
+					return
+				}
+				if(data.description==''){
+					uni.showToast({
+						title: '请输入问题描述',
+						icon: 'none'
+					})
+					return
+				}
+
+				Api.createWO(data,this.imgList).then(res =>{
+					
+				})
+			}
 		}
 	}
 </script>
