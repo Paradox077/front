@@ -16,7 +16,13 @@
 </template>
 
 <script>
+	import Api from '../../api/wo';
 	export default {
+		onLoad:function(){
+			Api.getHisWO().then(res => {
+					console.log(res)
+				})
+		},
 		data() {
 			return {
 				

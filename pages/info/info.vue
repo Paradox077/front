@@ -28,12 +28,6 @@
 		data() {
 			return {
 				bkName: '',
-				index: -1,
-				multiIndex: [1, 0, 0],
-				imgList: [],
-				modalName: null,
-				textareaAValue: '',
-				textareaBValue: '',
 			};
 		},
 		methods: {

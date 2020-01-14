@@ -9,6 +9,14 @@ export default {
 	    });
 	},
 	
+	getHisWO() {
+	    return Request().post('/wo/getHisWO', {
+	        header: {
+	            contentType: 'application/json'
+	        },
+	    });
+	},
+	
 	async createWO(data,imgList) {
 		let imgPath = '';
 		for (let k in imgList) {
