@@ -37,9 +37,20 @@ import Api from '../../api/user';
         },
         methods: {
             login: function(e) {
+				uni.showLoading({
+				    title: '登录中',	
+				})
 				Api.login(e.detail.value)
 				.then(res => {
-					console.log(res),
+					uni.hideLoading()
+					if(res.code==200){
+						wx.showToast({
+							icon:'success',
+							mask:true,
+							title: '登录成功',
+							duration: 2000
+						})
+					}
 					uni.setStorageSync('token', res.data.token);
 					uni.switchTab({
 						url: '/pages/info/info'

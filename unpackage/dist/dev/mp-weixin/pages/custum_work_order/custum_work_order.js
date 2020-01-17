@@ -295,9 +295,13 @@ var _wo = _interopRequireDefault(__webpack_require__(/*! ../../api/wo */ 54));fu
 //
 //
 //
-var _default = { onLoad: function onLoad() {var _this = this;_wo.default.initWO().then(function (res) {_this.bkName = res.data.org;console.log(res.data);_this.machinePickerArray = res.data.machinePicker;_this.faultPickerArray = res.data.faultPicker;_this.multiArray[0] = res.data.machinePicker;_this.multiArray[1] = res.data.machinePicker[0].children;_this.machineId = _this.multiArray[1][0].value;_this.orgId = res.data.orgId;});}, data: function data() {return { index: -1, imgList: [], bkName: '', multiArray: [], multiIndex: [0, 0], machinePickerArray: [], faultPickerArray: [], flag: false, machineId: '', faultId: '', description: '', person: '', phone: '', orgId: '' };}, methods: { ChooseImage: function ChooseImage() {var _this2 = this;uni.chooseImage({ count: 4, //默认9
+var _default = { onLoad: function onLoad() {var _this = this;uni.showLoading({ title: '加载中' });_wo.default.initWO().then(function (res) {_this.bkName = res.data.org;console.log(res.data);_this.machinePickerArray = res.data.machinePicker;_this.faultPickerArray = res.data.faultPicker;_this.multiArray[0] = res.data.machinePicker;_this.multiArray[1] = res.data.machinePicker[0].children;_this.machineId = _this.multiArray[1][0].value;_this.orgId = res.data.orgId;uni.hideLoading();});}, data: function data() {return { index: -1, imgList: [], bkName: '', multiArray: [], multiIndex: [0, 0], machinePickerArray: [], faultPickerArray: [], flag: false, machineId: '', faultId: '', description: '', person: '', phone: '', orgId: '' };}, methods: { ChooseImage: function ChooseImage() {var _this2 = this;uni.chooseImage({ count: 4, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album', 'camera'], success: function success(res) {if (_this2.imgList.length != 0) {_this2.imgList = _this2.imgList.concat(res.tempFilePaths);} else {_this2.imgList = res.tempFilePaths;}} });}, ViewImage: function ViewImage(e) {uni.previewImage({ urls: this.imgList, current: e.currentTarget.dataset.url });}, DelImg: function DelImg(e) {var _this3 = this;uni.showModal({ title: '删除确认', content: '确定要删除这张图片吗？', cancelText: '取消', confirmText: '确认', success: function success(res) {if (res.confirm) {_this3.imgList.splice(e.currentTarget.dataset.index, 1);}} });}, PickerChange: function PickerChange(e) {this.index = e.detail.value;this.faultId = this.faultPickerArray[this.index].value;}, MultiChange: function MultiChange(e) {this.multiIndex = e.detail.value;if (this.multiArray[0][this.multiIndex[0]].value == '99999') {this.machineId = this.multiArray[0][this.multiIndex[0]].value;} else {this.machineId = this.multiArray[1][this.multiIndex[1]].value;}},
+        sourceType: ['album', 'camera'], success: function success(res) {if (_this2.imgList.length != 0) {_this2.imgList = _this2.imgList.concat(res.tempFilePaths);} else {_this2.imgList = res.tempFilePaths;}} });}, ViewImage: function ViewImage(e) {uni.previewImage({ urls: this.imgList, current: e.currentTarget.dataset.url });}, DelImg: function DelImg(e) {var _this3 = this;uni.showModal({ title: '删除确认', content: '确定要删除这张图片吗？', cancelText: '取消', confirmText: '确认', success: function success(res) {if (res.confirm) {_this3.imgList.splice(e.currentTarget.dataset.index, 1);}} });}, PickerChange: function PickerChange(e) {this.index = e.detail.value;this.faultId = this.faultPickerArray[this.index].value;}, MultiChange: function MultiChange(e) {this.multiIndex = e.detail.value;if (this.multiArray[0][this.multiIndex[0]].value == '99999') {this.machineId = this.multiArray[0][this.multiIndex[0]].value;
+      } else {
+        this.machineId = this.multiArray[1][this.multiIndex[1]].value;
+      }
+    },
     MultiColumnChange: function MultiColumnChange(e) {
       var data = {
         multiArray: this.multiArray,
@@ -306,7 +310,6 @@ var _default = { onLoad: function onLoad() {var _this = this;_wo.default.initWO(
       var len = data.multiArray[0].length;
       console.log('len:' + len);
       data.multiIndex[e.detail.column] = e.detail.value;
-      console.log('multiIndex:' + data.multiIndex[0]);
       if (data.multiIndex[0] == 5) {
         data.multiArray[1] = [];
         this.multiIndex.splice(1, 0);
@@ -368,8 +371,29 @@ var _default = { onLoad: function onLoad() {var _this = this;_wo.default.initWO(
 
         return;
       }
+      uni.showLoading({
+        title: '提交中' });
 
       _wo.default.createWO(data, this.imgList).then(function (res) {
+        uni.hideLoading();
+        if (res.code == 200) {
+          wx.showToast({
+            icon: 'success',
+            mask: true,
+            title: '提交成功',
+            duration: 2000 });
+
+          uni.switchTab({
+            url: '/pages/his_wo/his_wo' });
+
+        } else {
+          wx.showToast({
+            icon: 'none',
+            title: '提交失败',
+            mask: true,
+            duration: 2000 });
+
+        }
 
       });
     } } };exports.default = _default;

@@ -9,23 +9,23 @@
 			</view>
 			<view class="cu-form-group">
 				<view class="title">联系人</view>
-				<text></text>
+				<text>{{person}}</text>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">电话号码</view>
-				<text></text>
+				<text>{{phone}}</text>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">归属网点</view>
-				<text></text>
-			</view>			
+				<text>{{br}}</text>
+			</view>
+			<view class="cu-form-group bg-white margin-top">
+				<view class="title">故障分类</view>
+					<text>{{fault}}</text>
+			</view>
 			<view class="cu-form-group">
-				<view class="title">岗位</view>
-				<picker @change="PickerChange" :value="index" :range="picker">
-					<view class="picker">
-						{{index>-1?picker[index]:''}}
-					</view>
-				</picker>
+				<view class="title">设备类型</view>
+					<text>{{machine}}</text>
 			</view>
 			<view class="cu-bar bg-white margin-top">
 				<view class="action">
@@ -33,10 +33,7 @@
 					<text>故障描述</text>
 				</view>
 			</view>
-			<view class="cu-form-group">
-				<textarea maxlength="-1" :disabled="modalName!=null" @input="textareaAInput" placeholder="故障描述"></textarea>
-			</view>
-			<view class="cu-bar bg-white margin-top">
+<!-- 			<view class="cu-bar bg-white margin-top">
 				<view class="cu-bar bg-white">
 					<view class="action">
 						<text class="cuIcon-title text-green"></text>
@@ -59,16 +56,33 @@
 						<text class='cuIcon-cameraadd'></text>
 					</view>
 				</view>
-			</view>
+			</view> -->
 
 		</form>
 	</view>
 </template>
 
 <script>
+import Api from '../../api/wo';
 	export default {
+		onLoad:function(option){
+			Api.getWOInfo(option.orderId).then(res=>{
+				console.log(res)
+				this.person=res.data.person
+				this.phone=res.data.phone
+				this.br=res.data.br
+				this.fault=res.data.fault
+				this.machine=res.data.machine
+				
+			})
+		},
 		data() {
 			return {
+				person: '',
+				phone: '',
+				fault: '',
+				machine: '',
+				br: '',
 				index: -1,
 				multiIndex: [0, 0, 0],
 				imgList: [],

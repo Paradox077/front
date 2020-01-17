@@ -30,7 +30,8 @@
         ,{
             "path" : "pages/his_wo/his_wo",
             "style" : {
-				"navigationBarTitleText": "历史工单"
+				"navigationBarTitleText": "历史工单",
+				"enablePullDownRefresh": true
 			}
         }
     ],

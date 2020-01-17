@@ -191,7 +191,14 @@ var _user = _interopRequireDefault(__webpack_require__(/*! ../../api/user */ 21)
 //
 //
 //
-var _default = { data: function data() {return { loginForm: { workNo: "05360", password: "123456" } };}, methods: { login: function login(e) {_user.default.login(e.detail.value).then(function (res) {console.log(res), uni.setStorageSync('token', res.data.token);uni.switchTab({ url: '/pages/info/info' });});} } };exports.default = _default;
+var _default = { data: function data() {return { loginForm: { workNo: "05360", password: "123456" } };}, methods: { login: function login(e) {uni.showLoading({ title: '登录中' });_user.default.login(e.detail.value).then(function (res) {uni.hideLoading();if (res.code == 200) {wx.showToast({ icon: 'success', mask: true, title: '登录成功', duration: 2000 });
+        }
+        uni.setStorageSync('token', res.data.token);
+        uni.switchTab({
+          url: '/pages/info/info' });
+
+      });
+    } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })

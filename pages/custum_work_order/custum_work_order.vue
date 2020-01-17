@@ -9,11 +9,11 @@
 			</view>
 			<view class="cu-form-group">
 				<view class="title">联系人</view>
-				<input @input="setPerson"></input>
+				<input @input="setPerson" style="text-align:right"></input>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">电话号码</view>
-				<input @input="setPhone"></input>
+				<input @input="setPhone" style="text-align:right"></input>
 			</view>
 			<view class="cu-form-group">
 				<view class="title">归属网点</view>
@@ -77,6 +77,9 @@
 import Api from '../../api/wo';
 	export default {
 		onLoad:function(){
+			uni.showLoading({
+			    title: '加载中'
+			});
 			Api.initWO().then(res => {
 					this.bkName = res.data.org
 					console.log(res.data)
@@ -86,6 +89,7 @@ import Api from '../../api/wo';
 					this.multiArray[1] = res.data.machinePicker[0].children
 					this.machineId = this.multiArray[1][0].value
 					this.orgId = res.data.orgId
+					uni.hideLoading()
 				})
 		},
 		data() {
@@ -160,7 +164,6 @@ import Api from '../../api/wo';
 				let len = data.multiArray[0].length
 				console.log('len:'+len)
 				data.multiIndex[e.detail.column] = e.detail.value
-				console.log('multiIndex:'+data.multiIndex[0])
 				if(data.multiIndex[0] == 5){
 					data.multiArray[1] = []
 					this.multiIndex.splice(1, 0)
@@ -222,9 +225,30 @@ import Api from '../../api/wo';
 					})
 					return
 				}
-
+				uni.showLoading({
+				    title: '提交中',	
+				})
 				Api.createWO(data,this.imgList).then(res =>{
-					
+					uni.hideLoading()
+					if(res.code==200){
+						wx.showToast({
+							icon:'success',
+							mask:true,
+							title: '提交成功',
+							duration: 2000
+						})
+						uni.switchTab({
+							url:'/pages/his_wo/his_wo'
+						})
+					}else{
+						wx.showToast({
+							icon:'none',
+							title: '提交失败',
+							mask:true,
+							duration: 2000
+						})
+					}
+
 				})
 			}
 		}

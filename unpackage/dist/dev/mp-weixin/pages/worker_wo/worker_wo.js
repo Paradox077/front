@@ -133,122 +133,136 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
-{
-  data: function data() {
-    return {
-      index: -1,
-      multiIndex: [0, 0, 0],
-      imgList: [],
-      modalName: null,
-      textareaAValue: '',
-      textareaBValue: '' };
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-  },
-  methods: {
-    PickerChange: function PickerChange(e) {
-      this.index = e.detail.value;
-    },
-    MultiChange: function MultiChange(e) {
-      this.multiIndex = e.detail.value;
-    },
-    TimeChange: function TimeChange(e) {
-      this.time = e.detail.value;
-    },
-    DateChange: function DateChange(e) {
-      this.date = e.detail.value;
-    },
-    RegionChange: function RegionChange(e) {
-      this.region = e.detail.value;
-    },
-    SwitchA: function SwitchA(e) {
-      this.switchA = e.detail.value;
-    },
-    SwitchB: function SwitchB(e) {
-      this.switchB = e.detail.value;
-    },
-    SwitchC: function SwitchC(e) {
-      this.switchC = e.detail.value;
-    },
-    SwitchD: function SwitchD(e) {
-      this.switchD = e.detail.value;
-    },
-    RadioChange: function RadioChange(e) {
-      this.radio = e.detail.value;
-    },
-    CheckboxChange: function CheckboxChange(e) {
-      var items = this.checkbox,
-      values = e.detail.value;
-      for (var i = 0, lenI = items.length; i < lenI; ++i) {
-        items[i].checked = false;
-        for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _wo = _interopRequireDefault(__webpack_require__(/*! ../../api/wo */ 54));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { onLoad: function onLoad(option) {var _this = this;_wo.default.getWOInfo(option.orderId).then(function (res) {console.log(res);_this.person = res.data.person;_this.phone = res.data.phone;_this.br = res.data.br;_this.fault = res.data.fault;_this.machine = res.data.machine;});}, data: function data() {return { person: '', phone: '', fault: '', machine: '', br: '', index: -1, multiIndex: [0, 0, 0], imgList: [], modalName: null, textareaAValue: '', textareaBValue: '' };}, methods: { PickerChange: function PickerChange(e) {this.index = e.detail.value;}, MultiChange: function MultiChange(e) {this.multiIndex = e.detail.value;}, TimeChange: function TimeChange(e) {this.time = e.detail.value;}, DateChange: function DateChange(e) {this.date = e.detail.value;}, RegionChange: function RegionChange(e) {this.region = e.detail.value;}, SwitchA: function SwitchA(e) {this.switchA = e.detail.value;}, SwitchB: function SwitchB(e) {this.switchB = e.detail.value;}, SwitchC: function SwitchC(e) {this.switchC = e.detail.value;}, SwitchD: function SwitchD(e) {this.switchD = e.detail.value;}, RadioChange: function RadioChange(e) {this.radio = e.detail.value;}, CheckboxChange: function CheckboxChange(e) {var items = this.checkbox,values = e.detail.value;for (var i = 0, lenI = items.length; i < lenI; ++i) {items[i].checked = false;for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
           if (items[i].value == values[j]) {
             items[i].checked = true;
             break;
@@ -256,16 +270,16 @@ var _default =
         }
       }
     },
-    ChooseImage: function ChooseImage() {var _this = this;
+    ChooseImage: function ChooseImage() {var _this2 = this;
       uni.chooseImage({
         count: 4, //默认9
         sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], //从相册选择
         success: function success(res) {
-          if (_this.imgList.length != 0) {
-            _this.imgList = _this.imgList.concat(res.tempFilePaths);
+          if (_this2.imgList.length != 0) {
+            _this2.imgList = _this2.imgList.concat(res.tempFilePaths);
           } else {
-            _this.imgList = res.tempFilePaths;
+            _this2.imgList = res.tempFilePaths;
           }
         } });
 
@@ -276,7 +290,7 @@ var _default =
         current: e.currentTarget.dataset.url });
 
     },
-    DelImg: function DelImg(e) {var _this2 = this;
+    DelImg: function DelImg(e) {var _this3 = this;
       uni.showModal({
         title: '删除确认',
         content: '确定要删除这张图片吗？',
@@ -284,7 +298,7 @@ var _default =
         confirmText: '确认',
         success: function success(res) {
           if (res.confirm) {
-            _this2.imgList.splice(e.currentTarget.dataset.index, 1);
+            _this3.imgList.splice(e.currentTarget.dataset.index, 1);
           }
         } });
 

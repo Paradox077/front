@@ -1108,7 +1108,7 @@ to {
 	        filter: grayscale(1);
 }
 .cu-list+.cu-list {
-	margin-top: 30rpx
+	margin-top: 0rpx
 }
 .cu-list>.cu-item {
 	-webkit-transition: all .6s ease-in-out 0s;
@@ -3519,6 +3519,7 @@ scroll-view.cu-steps .cu-item {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+	width: 400rpx;
 }
 .text-bold {
 	font-weight: bold;

@@ -1176,7 +1176,7 @@ button.cuIcon.lg {
 }
 
 .cu-list+.cu-list {
-	margin-top: 30upx
+	margin-top: 0upx
 }
 
 .cu-list>.cu-item {
@@ -3799,6 +3799,7 @@ scroll-view.cu-steps .cu-item {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+	width: 400rpx;
 }
 
 .text-bold {

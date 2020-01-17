@@ -98,6 +98,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.WOList, function(item, __i0__) {
+    var m0 = _vm.getDate(item.createdDate)
+    var m1 = parseInt(item.sts)
+    var m2 = parseInt(item.sts)
+    return {
+      $orig: _vm.__get_orig(item),
+      m0: m0,
+      m1: m1,
+      m2: m2
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -131,7 +151,11 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
 
 
 
@@ -166,7 +190,28 @@ var _wo = _interopRequireDefault(__webpack_require__(/*! ../../api/wo */ 54));fu
 //
 //
 //
-var _default = { onLoad: function onLoad() {_wo.default.getHisWO().then(function (res) {console.log(res);});}, data: function data() {return {};}, methods: {} };exports.default = _default;
+//
+//
+//
+//
+var _default = { onPullDownRefresh: function onPullDownRefresh() {var _this = this;_wo.default.getHisWO().then(function (res) {_this.WOList = res.data;uni.stopPullDownRefresh();});}, onLoad: function onLoad() {var _this2 = this;uni.showLoading({ title: '加载中' });_wo.default.getHisWO().then(function (res) {_this2.WOList = res.data;uni.hideLoading();});}, data: function data() {return { WOList: [], tagList: ["cu-tag round bg-orange light", "cu-tag round bg-blue light", "cu-tag round bg-green light", "cu-tag round bg-grey light"], tagInfoList: ['待审批', '已分派', '已处理', '已关闭'] };
+
+  },
+  methods: {
+    getDate: function getDate(e) {
+      var date = new Date(parseInt(e));
+      var YY = date.getFullYear();
+      var MM = date.getMonth() + 1;
+      var DD = date.getDate();
+      return YY + "年" + MM + "月" + DD + "日";
+    },
+    goWODetail: function goWODetail(orderId) {
+      console.log(orderId);
+      uni.navigateTo({
+        url: '../worker_wo/worker_wo?orderId=' + orderId });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 
