@@ -44,17 +44,34 @@ import Api from '../../api/user';
 				.then(res => {
 					uni.hideLoading()
 					if(res.code==200){
-						wx.showToast({
+						uni.showToast({
 							icon:'success',
 							mask:true,
 							title: '登录成功',
 							duration: 2000
 						})
+						uni.hideToast()
+						uni.setStorageSync('token', res.data.token);
+						if(res.data.role=="0"){
+							uni.switchTab({
+								url: '/pages/info/info'
+							});
+						}else if(res.data.role=="1"){
+							uni.showToast({
+								icon:'success',
+								mask:true,
+								title: '工程师',
+								duration: 2000
+							})
+						}else{
+							uni.showToast({
+								icon:'success',
+								mask:true,
+								title: '管理员',
+								duration: 2000
+							})
+						}
 					}
-					uni.setStorageSync('token', res.data.token);
-					uni.switchTab({
-						url: '/pages/info/info'
-					});
 				})
             }
         }
