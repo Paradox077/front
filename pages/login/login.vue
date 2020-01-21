@@ -30,7 +30,7 @@ import Api from '../../api/user';
         data() {
             return {
 				loginForm: {  
-				    workNo: "05360",  
+				    workNo: "05370",  
 				    password: "123456",  
 				}, 
             }

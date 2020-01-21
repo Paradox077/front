@@ -191,7 +191,7 @@ var _user = _interopRequireDefault(__webpack_require__(/*! ../../api/user */ 21)
 //
 //
 //
-var _default = { data: function data() {return { loginForm: { workNo: "05360", password: "123456" } };}, methods: { login: function login(e) {uni.showLoading({ title: '登录中' });_user.default.login(e.detail.value).then(function (res) {uni.hideLoading();if (res.code == 200) {uni.showToast({ icon: 'success', mask: true, title: '登录成功', duration: 2000 });
+var _default = { data: function data() {return { loginForm: { workNo: "05370", password: "123456" } };}, methods: { login: function login(e) {uni.showLoading({ title: '登录中' });_user.default.login(e.detail.value).then(function (res) {uni.hideLoading();if (res.code == 200) {uni.showToast({ icon: 'success', mask: true, title: '登录成功', duration: 2000 });
           uni.hideToast();
           uni.setStorageSync('token', res.data.token);
           if (res.data.role == "0") {
