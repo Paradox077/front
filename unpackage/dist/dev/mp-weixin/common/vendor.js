@@ -8508,7 +8508,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/login/login": { "navigationBarTitleText": "BNLD报修系统" }, "pages/index/index": { "navigationBarTitleText": "BNLD报修系统" }, "pages/worker_wo/worker_wo": { "navigationBarTitleText": "工单查看" }, "pages/custum_work_order/custum_work_order": { "navigationBarTitleText": "工单上报" }, "pages/info/info": {}, "pages/his_wo/his_wo": { "navigationBarTitleText": "历史工单", "enablePullDownRefresh": true } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "BNLD报修系统", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/login/login": { "navigationBarTitleText": "BNLD报修系统" }, "pages/index/index": { "navigationBarTitleText": "BNLD报修系统" }, "pages/worker_wo/worker_wo": { "navigationBarTitleText": "工单查看" }, "pages/custum_work_order/custum_work_order": { "navigationBarTitleText": "工单上报" }, "pages/info/info": {}, "pages/his_wo/his_wo": { "navigationBarTitleText": "历史工单", "enablePullDownRefresh": true }, "pages/engineer/engineer": { "navigationBarTitleText": "工程师", "enablePullDownRefresh": true }, "pages/engineer_wo/engineer_wo": { "navigationBarTitleText": "工单详细信息" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "BNLD报修系统", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
@@ -10279,7 +10279,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       data: data });
 
   },
+  closeWO: function closeWO(data) {
+    return (0, _index.default)().post('/wo/closeWO', {
+      header: {
+        contentType: 'application/json' },
 
+      data: data });
+
+  },
   createWO: function () {var _createWO = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(data, imgList) {var imgPath, k, res, r;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
               imgPath = '';_context.t0 = _regenerator.default.keys(
               imgList);case 2:if ((_context.t1 = _context.t0()).done) {_context.next = 12;break;}k = _context.t1.value;

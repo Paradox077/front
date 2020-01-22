@@ -205,6 +205,9 @@ var _default = { data: function data() {return { loginForm: { workNo: "05370", p
               title: '工程师',
               duration: 2000 });
 
+            uni.redirectTo({
+              url: '/pages/engineer/engineer' });
+
           } else {
             uni.showToast({
               icon: 'success',

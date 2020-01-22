@@ -33,7 +33,20 @@
 				"navigationBarTitleText": "历史工单",
 				"enablePullDownRefresh": true
 			}
-        }
+        },
+		{
+			"path" : "pages/engineer/engineer",
+			"style" : {
+				"navigationBarTitleText": "工程师",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path" : "pages/engineer_wo/engineer_wo",
+			"style" : {
+				"navigationBarTitleText": "工单详细信息"
+			}
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

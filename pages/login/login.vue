@@ -63,6 +63,9 @@ import Api from '../../api/user';
 								title: '工程师',
 								duration: 2000
 							})
+							uni.redirectTo({
+								url: '/pages/engineer/engineer'
+							})
 						}else{
 							uni.showToast({
 								icon:'success',

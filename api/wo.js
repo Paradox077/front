@@ -24,7 +24,14 @@ export default {
 			data:data
 	    });
 	},
-	
+	closeWO(data) {
+		return Request().post('/wo/closeWO', {
+			header: {
+				contentType: 'application/json'
+			},
+			data:data
+		});
+	},
 	async createWO(data,imgList) {
 		let imgPath = '';
 		for (let k in imgList) {

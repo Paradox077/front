@@ -5,7 +5,9 @@
     "pages/worker_wo/worker_wo",
     "pages/custum_work_order/custum_work_order",
     "pages/info/info",
-    "pages/his_wo/his_wo"
+    "pages/his_wo/his_wo",
+    "pages/engineer/engineer",
+    "pages/engineer_wo/engineer_wo"
   ],
   "subPackages": [],
   "window": {
@@ -39,5 +41,5 @@
     ]
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap91.json"
+  "sitemapLocation": "sitemap84.json"
 }
